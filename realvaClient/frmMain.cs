@@ -21,6 +21,7 @@ namespace realvaClient
         // =====================================
         private Offset<uint> airspeed = new Offset<uint>(0x02BC);
         private Offset<uint> avionicsMaster = new Offset<uint>(0x2E80);
+        private Offset<string> model = new Offset<string>(0x3500, 24);
 
         private Offset<FsLongitude> playerLon = new Offset<FsLongitude>("LatLonPoint", 0x0568, 8);
         private Offset<FsLatitude> playerLat = new Offset<FsLatitude>("LatLonPoint", 0x0560, 8);
@@ -35,6 +36,9 @@ namespace realvaClient
         private String endTime;
         private String aircraft;
         private String savedCode;
+        private Double startFuel;
+        private Double endFuel;
+        private Double currentFuel;
 
         public frmMain()
         {
@@ -101,8 +105,13 @@ namespace realvaClient
               
 
                 FsLatLonPoint playerPos = new FsLatLonPoint(this.playerLat.Value, this.playerLon.Value);
+                this.txtAircraft.Text = this.model.Value;
 
-               // this.txtPlayerLocation.Text = this.playerLat.Value.DecimalDegrees.ToString();
+                PayloadServices ps = FSUIPCConnection.PayloadServices;
+                ps.RefreshData();
+                this.currentFuel = ps.FuelWeightKgs;
+
+                // this.txtPlayerLocation.Text = this.playerLat.Value.DecimalDegrees.ToString();
             }
             catch (Exception ex)
             {
@@ -142,12 +151,16 @@ namespace realvaClient
                 this.txtAircraft.Enabled = false;
                 this.txtSecretCode.Enabled = false;
                 File.WriteAllText("settings.txt", this.txtSecretCode.Text);
+                this.lblFlightStatus.Text = "Flight started";
+                this.lblFlightStatus.ForeColor = Color.Green;
             }
             else
             {
                 this.btnFlight.Text = "Start flight";
                 this.txtAircraft.Enabled = true;
                 this.txtSecretCode.Enabled = true;
+                this.lblFlightStatus.Text = "Flight not started";
+                this.lblFlightStatus.ForeColor = Color.Red;
             }
         }
 
@@ -168,12 +181,14 @@ namespace realvaClient
                 this.depLat = this.playerLat.Value.DecimalDegrees;
                 this.depLon = this.playerLon.Value.DecimalDegrees;
                 this.startTime = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss");
+                this.startFuel = Math.Round(this.currentFuel, 2);
             }
             else
             {
                 this.arrLat = this.playerLat.Value.DecimalDegrees;
                 this.arrLon = this.playerLon.Value.DecimalDegrees;
                 this.endTime = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss");
+                this.endFuel = Math.Round(this.currentFuel, 2);
 
                 string createText = this.depLat + Environment.NewLine + this.depLon + Environment.NewLine + this.startTime + Environment.NewLine + this.arrLat + Environment.NewLine + this.arrLon + Environment.NewLine + this.endTime + Environment.NewLine;
 
@@ -191,12 +206,14 @@ namespace realvaClient
                         arrLon,
                         startTime,
                         endTime,
-                        aircraft = txtAircraft.Text
+                        aircraft = txtAircraft.Text,
+                        startFuel,
+                        endFuel
                 });
 
                 client.Execute(request);
 
-                MessageBox.Show("Flight uploaded to server, you can start new flight / Let stavljen na sajt, mozete pokrenuti novi");
+                MessageBox.Show("Flight uploaded to server, you can start new flight");
             }
 
             configureStartFlight();
@@ -213,6 +230,11 @@ namespace realvaClient
         }
 
         private void txtSecretCode_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblFlightStatus_Click(object sender, EventArgs e)
         {
 
         }

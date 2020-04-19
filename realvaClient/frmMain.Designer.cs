@@ -39,6 +39,7 @@
             this.btnFlight = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.txtSecretCode = new System.Windows.Forms.TextBox();
+            this.lblFlightStatus = new System.Windows.Forms.Label();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -90,9 +91,9 @@
             // 
             // btnFlight
             // 
-            this.btnFlight.Location = new System.Drawing.Point(94, 108);
+            this.btnFlight.Location = new System.Drawing.Point(12, 108);
             this.btnFlight.Name = "btnFlight";
-            this.btnFlight.Size = new System.Drawing.Size(134, 40);
+            this.btnFlight.Size = new System.Drawing.Size(134, 37);
             this.btnFlight.TabIndex = 4;
             this.btnFlight.Text = "Start/End flight";
             this.btnFlight.UseVisualStyleBackColor = true;
@@ -116,11 +117,24 @@
             this.txtSecretCode.TabIndex = 5;
             this.txtSecretCode.TextChanged += new System.EventHandler(this.txtSecretCode_TextChanged);
             // 
+            // lblFlightStatus
+            // 
+            this.lblFlightStatus.AutoSize = true;
+            this.lblFlightStatus.Font = new System.Drawing.Font("Corbel", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFlightStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblFlightStatus.Location = new System.Drawing.Point(162, 112);
+            this.lblFlightStatus.Name = "lblFlightStatus";
+            this.lblFlightStatus.Size = new System.Drawing.Size(160, 24);
+            this.lblFlightStatus.TabIndex = 7;
+            this.lblFlightStatus.Text = "Flight not started";
+            this.lblFlightStatus.Click += new System.EventHandler(this.lblFlightStatus_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(329, 189);
+            this.Controls.Add(this.lblFlightStatus);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtSecretCode);
             this.Controls.Add(this.btnFlight);
@@ -151,6 +165,7 @@
         private System.Windows.Forms.Button btnFlight;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtSecretCode;
+        private System.Windows.Forms.Label lblFlightStatus;
     }
 }
 
