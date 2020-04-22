@@ -40,6 +40,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtSecretCode = new System.Windows.Forms.TextBox();
             this.lblFlightStatus = new System.Windows.Forms.Label();
+            this.txtDeparture = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtArrival = new System.Windows.Forms.TextBox();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,9 +61,9 @@
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblConnectionStatus});
-            this.statusStrip.Location = new System.Drawing.Point(0, 167);
+            this.statusStrip.Location = new System.Drawing.Point(0, 175);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(329, 22);
+            this.statusStrip.Size = new System.Drawing.Size(332, 22);
             this.statusStrip.TabIndex = 1;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -91,7 +95,7 @@
             // 
             // btnFlight
             // 
-            this.btnFlight.Location = new System.Drawing.Point(12, 108);
+            this.btnFlight.Location = new System.Drawing.Point(12, 129);
             this.btnFlight.Name = "btnFlight";
             this.btnFlight.Size = new System.Drawing.Size(134, 37);
             this.btnFlight.TabIndex = 4;
@@ -122,18 +126,54 @@
             this.lblFlightStatus.AutoSize = true;
             this.lblFlightStatus.Font = new System.Drawing.Font("Corbel", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFlightStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblFlightStatus.Location = new System.Drawing.Point(162, 112);
+            this.lblFlightStatus.Location = new System.Drawing.Point(162, 133);
             this.lblFlightStatus.Name = "lblFlightStatus";
             this.lblFlightStatus.Size = new System.Drawing.Size(160, 24);
             this.lblFlightStatus.TabIndex = 7;
             this.lblFlightStatus.Text = "Flight not started";
             this.lblFlightStatus.Click += new System.EventHandler(this.lblFlightStatus_Click);
             // 
+            // txtDeparture
+            // 
+            this.txtDeparture.Location = new System.Drawing.Point(78, 98);
+            this.txtDeparture.Name = "txtDeparture";
+            this.txtDeparture.Size = new System.Drawing.Size(88, 20);
+            this.txtDeparture.TabIndex = 8;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(18, 101);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(54, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Departure";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(192, 101);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(36, 13);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "Arrival";
+            // 
+            // txtArrival
+            // 
+            this.txtArrival.Location = new System.Drawing.Point(234, 98);
+            this.txtArrival.Name = "txtArrival";
+            this.txtArrival.Size = new System.Drawing.Size(88, 20);
+            this.txtArrival.TabIndex = 10;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(329, 189);
+            this.ClientSize = new System.Drawing.Size(332, 197);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.txtArrival);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.txtDeparture);
             this.Controls.Add(this.lblFlightStatus);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtSecretCode);
@@ -166,6 +206,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtSecretCode;
         private System.Windows.Forms.Label lblFlightStatus;
+        private System.Windows.Forms.TextBox txtDeparture;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtArrival;
     }
 }
 

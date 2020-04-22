@@ -39,11 +39,15 @@ namespace realvaClient
         private Double startFuel;
         private Double endFuel;
         private Double currentFuel;
+        private String departure;
+        private String arrival;
 
         public frmMain()
         {
             InitializeComponent();
             configureForm();
+            this.txtDeparture.CharacterCasing = CharacterCasing.Upper;
+            this.txtArrival.CharacterCasing = CharacterCasing.Upper;
             try
             {
                 this.savedCode = File.ReadAllText("settings.txt");
@@ -178,10 +182,26 @@ namespace realvaClient
 
             if(this.flightStarted)
             {
-                this.depLat = this.playerLat.Value.DecimalDegrees;
-                this.depLon = this.playerLon.Value.DecimalDegrees;
-                this.startTime = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss");
-                this.startFuel = Math.Round(this.currentFuel, 2);
+                if (txtDeparture.Text == null || txtDeparture.Text == ""
+                    || txtArrival.Text == null || txtArrival.Text == ""
+                    || txtAircraft.Text == null || txtAircraft.Text == ""
+                    || txtSecretCode.Text == null || txtSecretCode.Text == "")
+                {
+                    this.flightStarted = false;
+                    MessageBox.Show("Please enter all the data");
+                }
+                else
+                {
+                    this.depLat = this.playerLat.Value.DecimalDegrees;
+                    this.depLon = this.playerLon.Value.DecimalDegrees;
+                    this.startTime = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss");
+                    this.startFuel = Math.Round(this.currentFuel, 2);
+                    this.btnToggleConnection.Enabled = false;
+                    this.departure = txtDeparture.Text;
+                    this.arrival = txtArrival.Text;
+                    this.txtDeparture.Enabled = false;
+                    this.txtArrival.Enabled = false;
+                }
             }
             else
             {
@@ -189,6 +209,9 @@ namespace realvaClient
                 this.arrLon = this.playerLon.Value.DecimalDegrees;
                 this.endTime = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss");
                 this.endFuel = Math.Round(this.currentFuel, 2);
+                this.btnToggleConnection.Enabled = true;
+                this.txtDeparture.Enabled = true;
+                this.txtArrival.Enabled = true;
 
                 string createText = this.depLat + Environment.NewLine + this.depLon + Environment.NewLine + this.startTime + Environment.NewLine + this.arrLat + Environment.NewLine + this.arrLon + Environment.NewLine + this.endTime + Environment.NewLine;
 
@@ -208,7 +231,9 @@ namespace realvaClient
                         endTime,
                         aircraft = txtAircraft.Text,
                         startFuel,
-                        endFuel
+                        endFuel,
+                        departure,
+                        arrival
                 });
 
                 client.Execute(request);
