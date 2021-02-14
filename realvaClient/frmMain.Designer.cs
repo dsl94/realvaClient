@@ -44,6 +44,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtArrival = new System.Windows.Forms.TextBox();
+            this.testLbl = new System.Windows.Forms.Label();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,7 +62,7 @@
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblConnectionStatus});
-            this.statusStrip.Location = new System.Drawing.Point(0, 175);
+            this.statusStrip.Location = new System.Drawing.Point(0, 172);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(332, 22);
             this.statusStrip.TabIndex = 1;
@@ -165,11 +166,22 @@
             this.txtArrival.Size = new System.Drawing.Size(88, 20);
             this.txtArrival.TabIndex = 10;
             // 
+            // testLbl
+            // 
+            this.testLbl.AutoSize = true;
+            this.testLbl.Font = new System.Drawing.Font("Corbel", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.testLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.testLbl.Location = new System.Drawing.Point(46, 181);
+            this.testLbl.Name = "testLbl";
+            this.testLbl.Size = new System.Drawing.Size(0, 24);
+            this.testLbl.TabIndex = 12;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(332, 197);
+            this.ClientSize = new System.Drawing.Size(332, 194);
+            this.Controls.Add(this.testLbl);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtArrival);
             this.Controls.Add(this.label3);
@@ -210,6 +222,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtArrival;
+        private System.Windows.Forms.Label testLbl;
     }
 }
 

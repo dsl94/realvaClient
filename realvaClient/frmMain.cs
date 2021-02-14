@@ -20,8 +20,12 @@ namespace realvaClient
         // DECLARE OFFSETS YOU WANT TO USE HERE
         // =====================================
         private Offset<uint> airspeed = new Offset<uint>(0x02BC);
+        private Offset<short> onGround = new Offset<short>(0x0366);
+        private Offset<int> verticalSpeed = new Offset<int>(0x030C);
         private Offset<uint> avionicsMaster = new Offset<uint>(0x2E80);
         private Offset<string> model = new Offset<string>(0x3500, 24);
+        private bool tookOf = false;
+        private double landingRate;
 
         private Offset<FsLongitude> playerLon = new Offset<FsLongitude>("LatLonPoint", 0x0568, 8);
         private Offset<FsLatitude> playerLat = new Offset<FsLatitude>("LatLonPoint", 0x0560, 8);
@@ -89,6 +93,7 @@ namespace realvaClient
                 }
             }
             configureForm();
+
         }
 
         // This method runs 20 times per second (every 50ms). This is set on the timerMain properties.
@@ -100,7 +105,18 @@ namespace realvaClient
             {
                 FSUIPCConnection.Process();
                 FSUIPCConnection.Process("LatLonPoint");
+                if (this.onGround.Value == 0)
+                {
+                    this.tookOf = true;
+                }
 
+                if (this.onGround.Value == 1 && this.tookOf == true)
+                {
+                    double verticalSpeedMPS = (double)this.verticalSpeed.Value / 256d;
+                    double verticalSpeedFPM = verticalSpeedMPS * 60d * 3.28084d;
+                    this.landingRate = verticalSpeedFPM;
+                    this.tookOf = false;
+                }
 
                 // Update the information on the form
                 // (See the Examples Application for more information on using Offsets).
@@ -114,7 +130,7 @@ namespace realvaClient
                 PayloadServices ps = FSUIPCConnection.PayloadServices;
                 ps.RefreshData();
                 this.currentFuel = ps.FuelWeightKgs;
-
+                
                 // this.txtPlayerLocation.Text = this.playerLat.Value.DecimalDegrees.ToString();
             }
             catch (Exception ex)
@@ -137,6 +153,21 @@ namespace realvaClient
                 this.lblConnectionStatus.Text = "Connected to " + FSUIPCConnection.FlightSimVersionConnected.ToString();
                 this.lblConnectionStatus.ForeColor = Color.Green;
                 this.btnFlight.Enabled = true;
+                if (this.savedCode != null && this.savedCode != "")
+                {
+                    var client = new RestClient("https://realva-backend.herokuapp.com");
+                    var request = new RestRequest("flight/read/" + this.savedCode, Method.GET);
+                    var queryResult = client.Execute<Booking>(request).Data;
+                    this.txtDeparture.Text = queryResult.dep;
+                    this.txtArrival.Text = queryResult.arr;
+                }else if (this.txtSecretCode.Text != null && this.txtSecretCode.Text != "")
+                {
+                    var client = new RestClient("https://realva-backend.herokuapp.com");
+                    var request = new RestRequest("flight/read/" + this.txtSecretCode.Text, Method.GET);
+                    var queryResult = client.Execute<Booking>(request).Data;
+                    this.txtDeparture.Text = queryResult.dep;
+                    this.txtArrival.Text = queryResult.arr;
+                }
             }
             else
             {
@@ -233,7 +264,8 @@ namespace realvaClient
                         startFuel,
                         endFuel,
                         departure,
-                        arrival
+                        arrival,
+                        landingRate
                 });
 
                 client.Execute(request);
