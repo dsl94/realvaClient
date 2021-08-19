@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -155,6 +156,7 @@ namespace realvaClient
                 this.btnFlight.Enabled = true;
                 if (this.savedCode != null && this.savedCode != "")
                 {
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                     var client = new RestClient("https://realva-backend.herokuapp.com");
                     var request = new RestRequest("flight/read/" + this.savedCode, Method.GET);
                     var queryResult = client.Execute<Booking>(request).Data;
@@ -162,6 +164,7 @@ namespace realvaClient
                     this.txtArrival.Text = queryResult.arr;
                 }else if (this.txtSecretCode.Text != null && this.txtSecretCode.Text != "")
                 {
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                     var client = new RestClient("https://realva-backend.herokuapp.com");
                     var request = new RestRequest("flight/read/" + this.txtSecretCode.Text, Method.GET);
                     var queryResult = client.Execute<Booking>(request).Data;
