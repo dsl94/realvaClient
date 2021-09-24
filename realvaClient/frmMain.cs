@@ -154,6 +154,7 @@ namespace realvaClient
                 this.lblConnectionStatus.Text = "Connected to " + FSUIPCConnection.FlightSimVersionConnected.ToString();
                 this.lblConnectionStatus.ForeColor = Color.Green;
                 this.btnFlight.Enabled = true;
+                this.lblFlightNumber.Text = "";
                 if (this.savedCode != null && this.savedCode != "")
                 {
                     ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
@@ -162,7 +163,12 @@ namespace realvaClient
                     var queryResult = client.Execute<Booking>(request).Data;
                     this.txtDeparture.Text = queryResult.dep;
                     this.txtArrival.Text = queryResult.arr;
-                }else if (this.txtSecretCode.Text != null && this.txtSecretCode.Text != "")
+                    this.txtPax.Text = queryResult.pax.ToString();
+                    this.txtCargo.Text = queryResult.cargo;
+                    this.txtSpc.Text = queryResult.specialCargo;
+                    this.lblFlightNumber.Text = queryResult.flightNumber;
+                }
+                else if (this.txtSecretCode.Text != null && this.txtSecretCode.Text != "")
                 {
                     ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                     var client = new RestClient("https://realva-backend.herokuapp.com");
@@ -170,6 +176,10 @@ namespace realvaClient
                     var queryResult = client.Execute<Booking>(request).Data;
                     this.txtDeparture.Text = queryResult.dep;
                     this.txtArrival.Text = queryResult.arr;
+                    this.txtPax.Text = queryResult.pax.ToString();
+                    this.txtCargo.Text = queryResult.cargo;
+                    this.txtSpc.Text = queryResult.specialCargo;
+                    this.lblFlightNumber.Text = queryResult.flightNumber;
                 }
             }
             else
@@ -178,6 +188,7 @@ namespace realvaClient
                 this.lblConnectionStatus.Text = "Disconnected";
                 this.lblConnectionStatus.ForeColor = Color.Red;
                 this.btnFlight.Enabled = false;
+                this.lblFlightNumber.Text = "";
             }
         }
 

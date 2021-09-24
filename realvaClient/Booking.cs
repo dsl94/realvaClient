@@ -10,5 +10,9 @@ namespace realvaClient
     {
         public string dep { get; set; }
         public string arr { get; set; }
+        public int pax { get; set; }
+        public string cargo { get; set; }
+        public string specialCargo { get; set; }
+        public string flightNumber { get; set; }
     }
 }
