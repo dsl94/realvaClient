@@ -158,7 +158,7 @@ namespace realvaClient
                 if (this.savedCode != null && this.savedCode != "")
                 {
                     ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                    var client = new RestClient("https://realva-backend.herokuapp.com");
+                    var client = new RestClient("http://intisiavirtual.xyz:3001");
                     var request = new RestRequest("flight/read/" + this.savedCode, Method.GET);
                     var queryResult = client.Execute<Booking>(request).Data;
                     this.txtDeparture.Text = queryResult.dep;
@@ -171,7 +171,7 @@ namespace realvaClient
                 else if (this.txtSecretCode.Text != null && this.txtSecretCode.Text != "")
                 {
                     ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                    var client = new RestClient("https://realva-backend.herokuapp.com");
+                    var client = new RestClient("http://intisiavirtual.xyz:3001");
                     var request = new RestRequest("flight/read/" + this.txtSecretCode.Text, Method.GET);
                     var queryResult = client.Execute<Booking>(request).Data;
                     this.txtDeparture.Text = queryResult.dep;
@@ -261,7 +261,7 @@ namespace realvaClient
                 string createText = this.depLat + Environment.NewLine + this.depLon + Environment.NewLine + this.startTime + Environment.NewLine + this.arrLat + Environment.NewLine + this.arrLon + Environment.NewLine + this.endTime + Environment.NewLine;
 
                 var request = new RestRequest(Method.POST);
-                var client = new RestClient("https://realva-backend.herokuapp.com");
+                var client = new RestClient("http://intisiavirtual.xyz:3001");
                 request.Resource = "/flight/submit";
                 request.RequestFormat = DataFormat.Json;
                 request.AddHeader("userSecretCode", txtSecretCode.Text);
