@@ -14,5 +14,6 @@ namespace realvaClient
         public string cargo { get; set; }
         public string specialCargo { get; set; }
         public string flightNumber { get; set; }
+        public double fuelOnBoard { get; set; }
     }
 }

@@ -166,6 +166,7 @@ namespace realvaClient
                     this.txtPax.Text = queryResult.pax.ToString();
                     this.txtCargo.Text = queryResult.cargo;
                     this.txtSpc.Text = queryResult.specialCargo;
+                    this.txtFuelOnBoard.Text = queryResult.fuelOnBoard.ToString() + " kg";
                     this.lblFlightNumber.Text = queryResult.flightNumber;
                 }
                 else if (this.txtSecretCode.Text != null && this.txtSecretCode.Text != "")
@@ -179,6 +180,7 @@ namespace realvaClient
                     this.txtPax.Text = queryResult.pax.ToString();
                     this.txtCargo.Text = queryResult.cargo;
                     this.txtSpc.Text = queryResult.specialCargo;
+                    this.txtFuelOnBoard.Text = queryResult.fuelOnBoard.ToString() + " kg";
                     this.lblFlightNumber.Text = queryResult.flightNumber;
                 }
             }
@@ -306,6 +308,11 @@ namespace realvaClient
         }
 
         private void lblFlightStatus_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
         {
 
         }
